@@ -5,7 +5,7 @@ Installing notes for my personal use.
 
 Sardi at [Sourceforge](https://sourceforge.net/projects/sardi/files/)
 
-![Screenshots](http://i.imgur.com/NHnBgrR.jpg)
+![Screenshots]()
 
 
 

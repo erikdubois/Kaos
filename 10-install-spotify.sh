@@ -59,34 +59,34 @@
 ##################################################################################################################
 
 
-#checking if git is installed else install it
 
-if ! location="$(type -p "git")" || [ -z "git" ]; then
-
-	echo "#################################################"
-	echo "installing git for this script to work"
-	echo "#################################################"
-
-  	sudo pacman -S git
-fi
+# spotify https://github.com/KaOS-Community-Packages/spotify
 
 
+sudo pacman -S alsa-lib gcosudo nf gtk2 glib2 nss systemd libxtst libx11 libxss  --noconfirm
+
+sudo pacman -S gconf --noedit
+
+rm -rf /tmp/spotify
+
+mkdir /tmp/spotify
+
+wget https://raw.githubusercontent.com/KaOS-Community-Packages/spotify/master/PKGBUILD
+
+mv PKGBUILD /tmp/spotify/PKGBUILD
+
+wget https://raw.githubusercontent.com/KaOS-Community-Packages/spotify/master/spotify.protocol
+
+mv spotify.protocol /tmp/spotify/spotify.protocol
+
+cd /tmp/spotify
+
+makepkg -i /tmp/spotify
 
 
-#setting up git
-#https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-config
-
-git init
-git config --global user.name "Erik Dubois"
-git config --global user.email "erik.dubois@gmail.com"
-sudo git config --system core.editor nano
-git config --global credential.helper cache
-git config --global credential.helper 'cache --timeout=3600'
-git config --global push.default simple
 
 
 
-#git remote add origin https://github.com/erikdubois/Kaos.git
-
-
-echo " ALL  D O N E !"
+echo "########################################"
+echo "########    T H E   E N D      #########"
+echo "########################################"

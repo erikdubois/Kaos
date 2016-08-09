@@ -59,34 +59,42 @@
 ##################################################################################################################
 
 
-#checking if git is installed else install it
-
-if ! location="$(type -p "git")" || [ -z "git" ]; then
-
-	echo "#################################################"
-	echo "installing git for this script to work"
-	echo "#################################################"
-
-  	sudo pacman -S git
-fi
+########################################
+########    P A C K E R         ########
+########################################
 
 
 
+# source : http://www.ostechnix.com/install-packer-arch-linux-2/
 
-#setting up git
-#https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-config
-
-git init
-git config --global user.name "Erik Dubois"
-git config --global user.email "erik.dubois@gmail.com"
-sudo git config --system core.editor nano
-git config --global credential.helper cache
-git config --global credential.helper 'cache --timeout=3600'
-git config --global push.default simple
+# straight from aur and github
 
 
+# checking you have everything you need
+# normally not needed
+# sudo pacman -S base-devel fakeroot jshon expac git wget --noconfirm
 
-#git remote add origin https://github.com/erikdubois/Kaos.git
+#depends for packer
+
+sudo pacman -S grep sed bash curl pacman jshon expac --noconfirm
+
+rm -rf /tmp/packer
+
+mkdir /tmp/packer
+
+wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=packer
+
+mv PKGBUILD\?h\=packer /tmp/packer/PKGBUILD
+
+cd /tmp/packer
+
+makepkg -i /tmp/packer
 
 
-echo " ALL  D O N E !"
+
+#sudo pacman -U /tmp/packer/packer-*.pkg.tar.xz
+
+echo "########################################"
+echo "########    T H E   E N D      #########"
+echo "########################################"
+

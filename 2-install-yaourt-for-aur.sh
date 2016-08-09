@@ -59,34 +59,70 @@
 ##################################################################################################################
 
 
-#checking if git is installed else install it
-
-if ! location="$(type -p "git")" || [ -z "git" ]; then
-
-	echo "#################################################"
-	echo "installing git for this script to work"
-	echo "#################################################"
-
-  	sudo pacman -S git
-fi
+########################################
+########        YAOURT          ########
+########################################
 
 
 
+# source : https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=yaourt
 
-#setting up git
-#https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-config
-
-git init
-git config --global user.name "Erik Dubois"
-git config --global user.email "erik.dubois@gmail.com"
-sudo git config --system core.editor nano
-git config --global credential.helper cache
-git config --global credential.helper 'cache --timeout=3600'
-git config --global push.default simple
+# straight from aur and github
 
 
+# checking you have everything you need
+# normally not needed
+# sudo pacman -S base-devel fakeroot jshon expac git wget --noconfirm
 
-#git remote add origin https://github.com/erikdubois/Kaos.git
+#depends for yaourt
+
+sudo pacman -S diffutils  sed --noconfirm
+
+sudo ln -s /usr/bin/sed /bin/sed
 
 
-echo " ALL  D O N E !"
+# getting package-query
+
+
+rm -rf /tmp/package-query
+
+mkdir /tmp/package-query
+
+wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=package-query
+
+mv PKGBUILD\?h\=package-query /tmp/package-query/PKGBUILD
+
+cd /tmp/package-query
+
+makepkg -i /tmp/package-query
+
+
+
+
+
+
+# getting yaourt
+
+
+rm -rf /tmp/yaourt
+
+mkdir /tmp/yaourt
+
+wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yaourt
+
+mv PKGBUILD\?h\=yaourt /tmp/yaourt/PKGBUILD
+
+cd /tmp/yaourt
+
+makepkg -i /tmp/yaourt
+
+sudo ln -s /usr/bin/yaourt /usr/bin/packer
+
+
+
+#sudo pacman -U /tmp/yaourt/yaourt-*.pkg.tar.xz
+
+echo "########################################"
+echo "########    T H E   E N D      #########"
+echo "########################################"
+
